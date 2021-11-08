@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #signup{
+            border: 5px solid black;
+            width: 500px;
+            margin: auto;
+            margin-top: 100px;
+            padding: 10px;
+            height: 500px;
+            background-color: burlywood;
+            border-radius: 15px;
+        }
+        h1{
+            text-align: center;
+        }
+        input{
+            padding: 5px;
+            margin: 10px;
+            margin-left: 30%;
+            
+        }
+        #inpt
+        {
+            margin-left: 42%;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+           border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id = "forms">
+        <div id = "signup">
+            <form onsubmit="Signup(event)" id = "signup-form">
+                <h1>Signup</h1>
+                <input type="text" id="name" placeholder="Name"/>
+                <input type="email" id = "email" placeholder="Email"/>
+                <input type="password" id = "password" placeholder="Password"/>
+                <input type="text" id = "username" placeholder="Username"/>
+                <input type="number" id = "mobile" placeholder="Mobile"/>
+                <input type="text" id = "description" placeholder="Description"/>
+                <a href="Login.html" id="inpt">Login</a>
+            </form>
+        </div>
+</body>
+</html>
+
+
+<script>
+
+var arr = [];
+function Signup(e){
+
+    e.preventDefault();
+
+    let form = document.getElementById('signup-form');
+
+    let user_data = {
+        name: form.name.value,
+        email: form.email.value,
+        password: form.password.value,
+        username: form.username.value,
+        mobile: form.mobile.value,
+        description: form.description.value,
+    };
+
+    //console.log(user_data);
+
+    user_data = JSON.stringify(user_data);
+
+    fetch("https://masai-api-mocker.herokuapp.com/auth/register", {
+
+        method: 'POST',
+
+        body: user_data,
+
+        headers:{
+
+            'Content-Type':'application/json',
+        },
+    })
+    .then((res) =>{
+        return res.json()
+    })
+    .then((res) => {
+        console.log("res:", res);
+    })
+    .catch((err) => {
+        console.log("err:", err);
+    })
+   
+}
+
+
+</script>
